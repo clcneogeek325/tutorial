@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Formularios {% endblock %}
+{% block content %}
+
+	{{form.as_p}}
+
+<script type="text/javascript">
+	$(document).on('ready',function(){ 
+			var id=$('#id_id').attr('value');
+		      $.ajax({
+			  type:"GET",
+			  contentType:"application/json; charset=utf-8",
+			  dateType:"json",
+			  url:"/alumnos/"+id,
+			  success:function(response){
+			  	var info = response;
+			       console.log(info);
+				$('#id_nombre').attr('value',info.nombre);
+				$('#id_apellidos').attr('value',info.apellidos);
+				$('#id_edad').attr('value',info.edad);
+			  }
+			  });
+		});
+	    </script>
+	    <button id="btn_del">Eliminar</button>
+	    <button id="btn_ref">Actualizar</button>
+{% endblock %}

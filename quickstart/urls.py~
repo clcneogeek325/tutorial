@@ -1,0 +1,8 @@
+from django.conf.urls import patterns, include, url
+
+
+urlpatterns = patterns('quickstart.views',
+    # Examples:
+    url(r'^nombre/$', 'respuesta', name='vista_respuesta'),
+    # url(r'^blog/', include('blog.urls')),
+)

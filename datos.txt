@@ -1,0 +1,1 @@
+{"nombre": "linuxero", "apellidos": "hernandez garcis", "edad": 20, "status": true}

@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+
+{% block title %}Estas en el home{% endblock %}
+
+{% block content %}
+<h4>Tabla de alumnos</h4><br>
+		
+	 <script type="text/javascript">
+		 $(document).on('ready',function(){ 
+		      $.ajax({
+			  type:"GET",
+			  contentType:"application/json; charset=utf-8",
+			  dateType:"json",
+			  url:"/alumnos",
+			  success:function(response){
+			  var lista = response;
+				  for(var i=0;i< lista.length;i++){
+				  $('body').append(" <a href='/form/"+lista[i].id+"'> <p>"+lista[i].nombre+"</p></a>");
+				      }    
+				      
+			  }
+			  });
+		});
+	</script>
+{% endblock %}
