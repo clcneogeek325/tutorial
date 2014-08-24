@@ -58,6 +58,7 @@ def alumno_proces(request, pk):
         serializer = AlumnoSerializer(Alumno, data=data)
         if serializer.is_valid():
             serializer.save()
+	    print data,"si se guardo"
             return JSONResponse(serializer.data)
         return JSONResponse(serializer.errors, status=400)
     #eliminado

@@ -2,8 +2,11 @@
 
 {% block title %} Formularios {% endblock %}
 {% block content %}
-
+    <form id="formulario" action="" method="">
 	{{form.as_p}}
+   </form>
+	    <button id="btn_del">Eliminar</button>
+	    <button id="btn_ref">Actualizar</button>
 
 <script type="text/javascript">
 	$(document).on('ready',function(){ 
@@ -15,14 +18,54 @@
 			  url:"/alumnos/"+id,
 			  success:function(response){
 			  	var info = response;
-			       console.log(info);
 				$('#id_nombre').attr('value',info.nombre);
 				$('#id_apellidos').attr('value',info.apellidos);
 				$('#id_edad').attr('value',info.edad);
 			  }
 			  });
+		      
+			      $('#btn_ref').on('click',function(e){
+					var _id = $('#id_id').val();
+					var _nombre = $('#id_nombre').val();
+					var _apellidos=$('#id_apellidos').val();
+					var _edad=$('#id_edad').val();
+					var _status = true;
+					var ctx = {id :_id,nombre:_nombre,apellidos:_apellidos,edad:_edad,status:_status};
+					$.ajax({
+						  url:"/alumnos/"+id,
+						  data:JSON.stringify(ctx),
+						  type: 'PUT',
+						  contentType:"json",
+						  success: function (data, textStatus, xhr) {
+						  	alert("Los datos se guardaron correctamente");
+						 	 },
+						  error: function (xhr, textStatus, errorThrown) {
+						  	console.log('Error al procesar los datos');
+
+                					}
+
+							});
+				});
+			 $('#btn_del').on('click',function(e){
+					var _id = $('#id_id').val();
+					var _nombre = $('#id_nombre').val();
+					 if (confirm('¿Estas seguro de enviar este formulario?')){
+				        	$.ajax({
+						  url:"/alumnos/"+id,
+						  type: 'DELETE',
+						  success: function (data, textStatus, xhr) {
+						  document.location.href='/home/';
+						 	 },
+						  error: function (xhr, textStatus, errorThrown) {
+						  	console.log('Error al eliminar los datos');
+
+                					}
+
+							}); 
+
+    				}	 
+				});	
+
 		});
 	    </script>
-	    <button id="btn_del">Eliminar</button>
-	    <button id="btn_ref">Actualizar</button>
 {% endblock %}
